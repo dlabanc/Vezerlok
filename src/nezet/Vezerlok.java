@@ -454,7 +454,7 @@ public class Vezerlok extends javax.swing.JFrame {
 
             jList1.setModel(dlm);
         } else {
-            JOptionPane.showMessageDialog(this.rootPane, "Nincs kiválasztva elem!", "HIBA!", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this.rootPane, "Nincs kiválasztva elem!", "HIBA", JOptionPane.OK_OPTION);
         }
 
 
