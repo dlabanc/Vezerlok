@@ -20,10 +20,13 @@ public class Vezerlok extends javax.swing.JFrame {
      */
     public Vezerlok() {
         initComponents();
-        if (!CbHozzafuz.isSelected()){
+        if (!CbHozzafuz.isSelected()) {
             rbtnElejere.setEnabled(false);
             rbtnVegere.setEnabled(false);
         };
+        if (txtfUjszak.getText().trim().equals("")) {
+            btnFelvesz.setEnabled(false);
+        }
     }
 
     /**
@@ -85,17 +88,9 @@ public class Vezerlok extends javax.swing.JFrame {
         setTitle("Vezérlők használata");
 
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jTabbedPane1StateChanged(evt);
-            }
-        });
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MousePressed(evt);
             }
         });
 
@@ -195,21 +190,18 @@ public class Vezerlok extends javax.swing.JFrame {
         buttonGroup3.add(rbtnElejere);
         rbtnElejere.setSelected(true);
         rbtnElejere.setText("elejére");
-        rbtnElejere.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnElejereActionPerformed(evt);
-            }
-        });
 
         buttonGroup3.add(rbtnVegere);
         rbtnVegere.setText("végére");
 
         lblUjszak.setText("Új szak:");
 
-        txtfUjszak.setText("jTextField1");
-        txtfUjszak.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfUjszakActionPerformed(evt);
+        txtfUjszak.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtfUjszakKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfUjszakKeyReleased(evt);
             }
         });
 
@@ -417,12 +409,8 @@ public class Vezerlok extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rbtnElejereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnElejereActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnElejereActionPerformed
-
     private void CbHozzafuzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbHozzafuzActionPerformed
-        if (CbHozzafuz.isSelected()){
+        if (CbHozzafuz.isSelected()) {
             rbtnElejere.setEnabled(true);
             rbtnVegere.setEnabled(true);
         } else {
@@ -440,12 +428,9 @@ public class Vezerlok extends javax.swing.JFrame {
         txtJelszo.setText(jsz);
     }//GEN-LAST:event_btnJelszotMutatActionPerformed
 
-    private void txtfUjszakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfUjszakActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfUjszakActionPerformed
-
     private void btnFelveszActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFelveszActionPerformed
         jComboBox1.addItem(txtfUjszak.getText());
+        txtfUjszak.setText("");
     }//GEN-LAST:event_btnFelveszActionPerformed
 
     private void btnListbeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListbeActionPerformed
@@ -486,7 +471,6 @@ public class Vezerlok extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-
         pswJelszo.setText(jComboBox1.getSelectedItem().toString());
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -495,21 +479,28 @@ public class Vezerlok extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this.rootPane, "Nincs kiválasztva nem!", "HIBA!", JOptionPane.OK_OPTION);
             jTabbedPane1.setSelectedIndex(0);
         };
-        
-        if (jCheckBox1.isSelected()){
+
+        if (jCheckBox1.isSelected()) {
             jTextArea1.setText("kér hírlevelet");
         } else {
             jTextArea1.setText("");
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
-    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTabbedPane1StateChanged
+    private void txtfUjszakKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfUjszakKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER && !txtfUjszak.getText().trim().equals("")) {
+            jComboBox1.addItem(txtfUjszak.getText());
+            txtfUjszak.setText("");
+        };
+    }//GEN-LAST:event_txtfUjszakKeyPressed
 
-    private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTabbedPane1MousePressed
+    private void txtfUjszakKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfUjszakKeyReleased
+        if (!txtfUjszak.getText().trim().equals("")) {
+            btnFelvesz.setEnabled(true);
+        } else {
+            btnFelvesz.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtfUjszakKeyReleased
 
     /**
      * @param args the command line arguments
