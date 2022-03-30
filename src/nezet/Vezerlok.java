@@ -561,15 +561,14 @@ public class Vezerlok extends javax.swing.JFrame {
                 new Vezerlok().setVisible(true);
             }
         });
-        
-        
+
     }
 
     private void kilep() {
-        ImageIcon icon = new ImageIcon("tiger.png");
-        
+        ImageIcon icon = new ImageIcon("src/nezet/tiger.png");
+
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        if (JOptionPane.showConfirmDialog(this, "Kilépéskor nem kerül semmi mentésre. Biztos folytatja?", "Kilépés", JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,icon) == JOptionPane.OK_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Kilépéskor nem kerül semmi mentésre. Biztos folytatja?", "Kilépés", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, icon) == JOptionPane.OK_OPTION) {
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
     }
