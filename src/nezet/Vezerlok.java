@@ -5,11 +5,13 @@
  */
 package nezet;
 
+import java.io.File;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -565,7 +567,9 @@ public class Vezerlok extends javax.swing.JFrame {
     }
 
     private void kilep() {
-        ImageIcon icon = new ImageIcon("src/nezet/tiger.png");
+        File home = FileSystemView.getFileSystemView().getHomeDirectory();
+        String kepPath = home + "/tiger.png";
+        ImageIcon icon = new ImageIcon(kepPath);
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         if (JOptionPane.showConfirmDialog(this, "Kilépéskor nem kerül semmi mentésre. Biztos folytatja?", "Kilépés", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, icon) == JOptionPane.OK_OPTION) {
