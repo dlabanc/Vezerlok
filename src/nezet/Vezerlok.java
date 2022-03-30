@@ -6,6 +6,8 @@
 package nezet;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
@@ -86,6 +88,11 @@ public class Vezerlok extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vezérlők használata");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -351,6 +358,11 @@ public class Vezerlok extends javax.swing.JFrame {
         jMenu1.add(jSeparator1);
 
         jMenuItem3.setText("Kilépés");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -431,6 +443,7 @@ public class Vezerlok extends javax.swing.JFrame {
     private void btnFelveszActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFelveszActionPerformed
         jComboBox1.addItem(txtfUjszak.getText());
         txtfUjszak.setText("");
+        btnFelvesz.setEnabled(false);
     }//GEN-LAST:event_btnFelveszActionPerformed
 
     private void btnListbeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListbeActionPerformed
@@ -483,24 +496,37 @@ public class Vezerlok extends javax.swing.JFrame {
         if (jCheckBox1.isSelected()) {
             jTextArea1.setText("kér hírlevelet");
         } else {
-            jTextArea1.setText("");
+            jTextArea1.setText("nem kér hírlevelet");
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void txtfUjszakKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfUjszakKeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER && !txtfUjszak.getText().trim().equals("")) {
+        if (evt.getKeyCode() == evt.VK_ENTER && !txtfUjszak.getText().isEmpty()) {
             jComboBox1.addItem(txtfUjszak.getText());
             txtfUjszak.setText("");
         };
-    }//GEN-LAST:event_txtfUjszakKeyPressed
-
-    private void txtfUjszakKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfUjszakKeyReleased
         if (!txtfUjszak.getText().trim().equals("")) {
             btnFelvesz.setEnabled(true);
         } else {
             btnFelvesz.setEnabled(false);
         }
+    }//GEN-LAST:event_txtfUjszakKeyPressed
+
+    private void txtfUjszakKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfUjszakKeyReleased
+        if (!txtfUjszak.getText().isEmpty()) {
+            btnFelvesz.setEnabled(true);
+        } else {
+            btnFelvesz.setEnabled(false);
+        }
     }//GEN-LAST:event_txtfUjszakKeyReleased
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        kilep();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        kilep();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -535,6 +561,17 @@ public class Vezerlok extends javax.swing.JFrame {
                 new Vezerlok().setVisible(true);
             }
         });
+        
+        
+    }
+
+    private void kilep() {
+        ImageIcon icon = new ImageIcon("tiger.png");
+        
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        if (JOptionPane.showConfirmDialog(this, "Kilépéskor nem kerül semmi mentésre. Biztos folytatja?", "Kilépés", JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,icon) == JOptionPane.OK_OPTION) {
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
